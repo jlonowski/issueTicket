@@ -2,7 +2,10 @@
 function fetchIssues() {
     var issues = JSON.parse(localStorage.getItem('issues'));
     var issuesList = document.getElementById('issuesList');
-
+    document.getElementById('issueInputForm').addEventListener('submit', saveIssue);
+    //go to HTML to get information from issueInputForm) click submit to save object issue ...listen for 
+    //"submit" is ID given to button and will save to variable "saveIssue"
+    //issueInputForm is the id of the form
     issuesList.innerHTML = '';
 
     for (var i = 0; i < issues.length; i++) {
@@ -61,6 +64,32 @@ function saveIssue(e) {
  
  e.preventDefault(); 
 }
+function setStatusClosed (id) {
+    var issues = JSON.parse(localStorage.getItem('issues'));
+    
+    for(var i = 0; i < issues.length; i++) {
+      if (issues[i].id == id) {
+        issues[i].status = "Closed";
+      }
+    }
+      
+    localStorage.setItem('issues', JSON.stringify(issues));
+    
+    fetchIssues();
+  }
+  function deleteIssue (id) {
+    var issues = JSON.parse(localStorage.getItem('issues'));
+    
+    for(var i = 0; i < issues.length; i++) {
+      if (issues[i].id == id) {
+        issues.splice(i, 1);
+      }
+    }
+    
+    localStorage.setItem('issues', JSON.stringify(issues));
+    
+    fetchIssues();
+  }
     }
 
 
